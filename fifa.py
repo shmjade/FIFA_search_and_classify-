@@ -114,7 +114,7 @@ def statistic_entries(hash_table):
 	print("Shortest entries: " + str(shortest))
 
 # ========    DEFINIÇÕES  =========
-ALPHABET_SIZE = 26
+ALPHABET_SIZE = 30
 # =================================
 
 class User:
@@ -135,13 +135,12 @@ class TrieNode:
 		# EndOfWord is -1 if the letter does not represent the end of a word. Otherwise, its
 		# value represents the sofifa_id of the player whose name is the word represented
 		self.EndOfWord = EndOfWord 
-		self.children = []
+		self.children = [None]*ALPHABET_SIZE
 		self.letter = letter
 
-	# Insertion
-	def setNewChildren(self, child):
-		self.children.append(child)
-
+	def getEndOfWord(self):
+		return self.EndOfWord
+	
 	# Searches for a Player in the Trie Tree and returns:
 	# - the sofifa_id of a Player if he was found
 	def searchPrefix(self, word):
@@ -150,10 +149,16 @@ class TrieNode:
 		size = len(word)        # the length of the word that we are searching for
 		w = 0           # index for the word
 		c = 0           # index for the children
+		word=word.lower()
 		while(w<size):           # outer loop --------> searchs for all letters
 			# Checks if one the children has the letter searched:
-			while(c<len(node.children) and node.children[c]!=word[w]):
-				c += 1
+			while(c<len(node.children)):
+				if(node.children[c] is None):
+					c+=1
+				elif node.children[c].letter==word[w]:
+					break
+				else:
+					c+=1
 			# Checks if the it ran out of children and returns -1 if so 
 			if(c==len(node.children)):
 				return -1
@@ -164,7 +169,53 @@ class TrieNode:
 				c = 0                           # resets the first child
 		return node   # Returns the sofifa_id if the letter is the end of a word or -1 if it is not
 
+	def insertTrie(self, key, code):
+		current=self
+		for i in range(0,len(key)):
+			l=key[i].lower()
+			index=ord(l)-97
+			if index<0 or index>26:	
+				#No a-z characters ordered by frequency
+				if index==-65: #' ' character
+					index=28 
+				elif index==-52: #'-' character
+					index=27 
+				elif index==-58: #"'" character
+					index=28 
+				elif index==-51: #'.' character
+					index=26
+				else:
+					index=28 
+			if(current.children[index] is None):
+				if(i==len(key)):
+					novo=TrieNode(code, l)
+					current.children[index]=novo
+				else:
+					novo=TrieNode(-1, l)
+					current.children[index]=novo
+			if(i==len(key)-1):
+				current.children[index].EndOfWord=code
+			current=current.children[index]
 
+	def printChildren(self, node, string):
+		string=string+node.letter
+		if node==None:
+			return 
+		total=len(node.children)
+		for i in range(0, total-1):
+			if node.children[i] is not None:
+				self.printChildren(node.children[i], string)
+		if node.EndOfWord!=-1:
+			printPlayer(node.getEndOfWord())
+		if node.children[total-1] is not None:
+			self.printChildren(node.children[total-1], string)
+
+root=TrieNode(-1," ")
+root.insertTrie("Ana", 5)
+root.insertTrie("astolfo", 10)
+root.insertTrie("bia", 12)
+root.printChildren(root,'')
+root.searchPrefix("Ana")
 
 
 
