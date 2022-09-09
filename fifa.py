@@ -1,5 +1,7 @@
+from asyncio.windows_events import NULL
 import csv
 import math
+from re import I
 from turtle import position
 
 
@@ -54,9 +56,9 @@ NUM_ENTRIES_RATINGS = 524287 # --> closest prime number to NUM_RATINGS
 
 
 # Returns a hash table with NUM_ENTRIES_PLAYERS entries
-def new_hash_table():
+def new_hash_table(NUM_ENTRIES):
 	hash_table = []
-	for i in range(0, NUM_ENTRIES_PLAYERS):
+	for i in range(0, NUM_ENTRIES):
 		hash_table.append([])
 	return hash_table
 
@@ -66,6 +68,16 @@ def new_hash_table():
 def insert_hash(hash_table, a_player):
 	hash_table[(a_player.getSofifaID())%NUM_ENTRIES_PLAYERS].append(a_player)
 	return hash_table
+
+# Finds a player in the hash table and returns the index of the player on the list
+def find_player_index(hash_table, sofifa_id):
+	i=0
+	for player in hash_table[(a_player.getSofifaID())%NUM_ENTRIES_PLAYERS]:
+		if(player.getSofifaID==sofifa_id):
+			return i 
+		i+=1
+	return -1
+
 
 # Opens the players.csv archive and inserts ... ---------> NOT FINISHED
 def read_players_csv(hash_table):
@@ -80,23 +92,28 @@ def read_players_csv(hash_table):
 	return hash_table
 
 # Opens the rating.csv archive and inserts ... ---------> NOT FINISHED
-def read_rating_csv(hash_table):
+def read_rating_csv(hash_players, hash_users):
 	with open("rating.csv", "r") as archive:
 		line_count = 0
 		csv_table = csv.reader(archive, delimiter=",")
 		i=0
 		for row in csv_table:
 			if(i!=0):
-				hash_table = insert_hash(hash_table, (Player(int(row[0]), row[1], row[2], int(row[3]), int(row[4]), int(row[5]))))
+				# add rating on the player ratings --> row[1] is the sofifa_id
+				j = find_player_index(hash_players, row[1])
+				if(j!=-1):
+					hash_players[(a_player.getSofifaID())%NUM_ENTRIES_PLAYERS][j].incCount()
+					hash_players[(a_player.getSofifaID())%NUM_ENTRIES_PLAYERS][j].setAverage(row[2])
+				# add rating on the user ratings
 			i+=1
-	return hash_table
+	return hash_players
 
 # Prints the statistic of the given hash table
-def statistic_entries(hash_table):
+def statistic_entries(hash_table, NUM_ENTRIES):
 	empty_entries = 0
 	used_entries = 0
 	longest = 0
-	shortest = NUM_PLAYERS
+	shortest = NUM_ENTRIES*3
 
 	for entry in hash_table:
 		if(entry == []):
@@ -109,7 +126,7 @@ def statistic_entries(hash_table):
 	print(" ======== STATISTIC =========")
 	print("Number of empty entries: " + str(empty_entries))
 	print("Number of used entries: " + str(used_entries))
-	print("USED/TOTAL = " + str(used_entries/NUM_ENTRIES_PLAYERS))
+	print("USED/TOTAL = " + str(used_entries/NUM_ENTRIES))
 	print("Longest entries: " + str(longest))
 	print("Shortest entries: " + str(shortest))
 
@@ -224,9 +241,18 @@ root.searchPrefix("Ana")
 # ===================================================================================
 # ==============
 # 
-# 1 - Creates a hash table 
-hash_table = new_hash_table()
+# ----- Players -----
+# 1 - Creates a hash table for the players
+hash_players = new_hash_table(NUM_ENTRIES_PLAYERS)
 # 2 - Opens the players.csv archive and inserts the players on the hash table
-read_players_csv(hash_table)
+read_players_csv(hash_players)
 # 3 - Prints the statistic of the hash table
-statistic_entries(hash_table)
+statistic_entries(hash_players, NUM_ENTRIES_PLAYERS)
+
+# ----- Ratings -----
+# 1 - Creates a hash table for the ratings (users)
+hash_users = new_hash_table(NUM_ENTRIES_RATINGS)
+# 2 - Opens the ratings.csv archive and inserts the ratings on the hash table
+read_rating_csv(hash_players, hash_users)
+# 3 - Prints the statistic of the hash table
+statistic_entries(hash_users, NUM_ENTRIES_RATINGS)
