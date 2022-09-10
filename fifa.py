@@ -1,9 +1,39 @@
-from asyncio.windows_events import NULL
 import csv
 import math
-from re import I
 from turtle import position
 
+
+# =======================================================
+# ============          DEFINITIONS         =============
+# =======================================================
+
+# --------------------------------------------------
+# --------------    Trie Tree    -------------------
+ALPHABET_SIZE = 26
+
+
+# --------------------------------------------------
+# -------------     Hash tables    -----------------
+
+# ----------- players.csv ----------
+# Total number of players:
+NUM_PLAYERS = 18944
+# Number of entries on Players hash table
+NUM_ENTRIES_PLAYERS = 9497  # --> closest prime number to NUM_PLAYERS
+
+
+# ----------- rating.csv -----------
+# Total number of ratings:
+NUM_RATINGS = 1048576 
+# Number of entries on Ratings hash table
+NUM_ENTRIES_RATINGS = 524287 # --> closest prime number to NUM_RATINGS
+
+# ----------- tags.csv -----------
+
+
+# =======================================================
+# ==============          CLASSES        ================
+# =======================================================
 
 class Player:
 	def __init__(self, sofifa_id, name, position, age, height, weight): 
@@ -34,6 +64,17 @@ class Player:
 	def __str__(self):
 		return (str(self.sofifa_id) + " " + self.name + " " +  self.position + " " +  str(self.age) + " " +  str(self.height) + " " +  str(self.weight))
 
+class User:
+	def __init__(self, ID, ratings):
+		self.ID = ID				# the user ID
+		self.ratings = []			# a list of pairs (sofifa_id, rating) for each rating of the user
+		self.ratings.append(ratings)
+	def getUserID(self):
+		return self.ID
+	def addRating(self, rating):
+		self.ratings.append(rating)
+	def getRatings(self):
+		return self.ratings
 
 # Fields summary:
 # 0 - sofifa_id
@@ -41,79 +82,76 @@ class Player:
 # 2 - age
 # 3 - player_positions
 
-# ----------- players.csv ----------
-# Total number of players:
-NUM_PLAYERS = 18944
-# Number of entries on Players hash table
-NUM_ENTRIES_PLAYERS = 9497  # --> closest prime number to NUM_PLAYERS
-# ----------- rating.csv -----------
-# Total number of ratings:
-NUM_RATINGS = 1048576 
-# Number of entries on Ratings hash table
-NUM_ENTRIES_RATINGS = 524287 # --> closest prime number to NUM_RATINGS
-# ----------- tags.csv -----------
 
+# =======================================================
+# =============          FUNCTIONS        ===============
+# =======================================================
 
+# --------------------------------------------------
+# -------------     general use    -----------------
 
-# Returns a hash table with NUM_ENTRIES_PLAYERS entries
+# Returns a hash table with NUM_ENTRIES entries
 def new_hash_table(NUM_ENTRIES):
 	hash_table = []
 	for i in range(0, NUM_ENTRIES):
 		hash_table.append([])
 	return hash_table
 
-
+# --------------------------------------------------
+# -------------     players.csv    -----------------
 
 # Inserts a player in a hash table, according to its sofifa_id, and returns the hash table
-def insert_hash(hash_table, a_player):
-	hash_table[(a_player.getSofifaID())%NUM_ENTRIES_PLAYERS].append(a_player)
-	return hash_table
-
-# Finds a player in the hash table and returns the index of the player on the list
-def find_player_index(hash_table, sofifa_id):
-	i=0
-	for player in hash_table[(a_player.getSofifaID())%NUM_ENTRIES_PLAYERS]:
-		if(player.getSofifaID==sofifa_id):
-			return i 
-		i+=1
-	return -1
-
+def insert_hash_players(hash_players, a_player):
+	hash_players[(a_player.getSofifaID())%NUM_ENTRIES_PLAYERS].append(a_player)
+	return hash_players
 
 # Opens the players.csv archive and inserts ... ---------> NOT FINISHED
-def read_players_csv(hash_table):
+def read_players_csv(hash_players):
 	with open("players.csv", "r") as archive:
 		line_count = 0
 		csv_table = csv.reader(archive, delimiter=",")
 		i=0
 		for row in csv_table:
 			if(i!=0):
-				hash_table = insert_hash(hash_table, (Player(int(row[0]), row[1], row[2], int(row[3]), int(row[4]), int(row[5]))))
+				hash_players = insert_hash_players(hash_players, (Player(int(row[0]), row[1], row[2], int(row[3]), int(row[4]), int(row[5]))))
 			i+=1
-	return hash_table
+	return hash_players
+
+
+# --------------------------------------------------
+# -------------     ratings.csv    -----------------
+
+# Inserts a user in the users hash table, according to its user_id, and returns the hash table
+def insert_hash_users(hash_users, a_user):
+	hash_users[(a_user.getUserID())%NUM_ENTRIES_RATINGS].append(a_user)
+	return hash_users
+
+def user_first_rating(hash_users, a_user):
+	# If there is no user on this hash entry, return 1 (this is the user's first rating)
+	for user in hash_users[(a_user.getUserID())%NUM_ENTRIES_RATINGS]:
+		if(user.getUserID()==a_user.getUserID()):	# if a user has the ID of the user I'm searching
+			return 0
+	return 1
+
 
 # Opens the rating.csv archive and inserts ... ---------> NOT FINISHED
-def read_rating_csv(hash_players, hash_users):
+def read_rating_csv(hash_users):
 	with open("rating.csv", "r") as archive:
 		line_count = 0
 		csv_table = csv.reader(archive, delimiter=",")
 		i=0
 		for row in csv_table:
 			if(i!=0):
-				# add rating on the player ratings --> row[1] is the sofifa_id
-				j = find_player_index(hash_players, row[1])
-				if(j!=-1):
-					hash_players[(a_player.getSofifaID())%NUM_ENTRIES_PLAYERS][j].incCount()
-					hash_players[(a_player.getSofifaID())%NUM_ENTRIES_PLAYERS][j].setAverage(row[2])
-				# add rating on the user ratings
+				hash_users = insert_hash_users(hash_users, User(row[0], [(row[1], row[2])]))
 			i+=1
-	return hash_players
+	return hash_users
 
 # Prints the statistic of the given hash table
-def statistic_entries(hash_table, NUM_ENTRIES):
+def statistic_entries(hash_table):
 	empty_entries = 0
 	used_entries = 0
 	longest = 0
-	shortest = NUM_ENTRIES*3
+	shortest = NUM_PLAYERS
 
 	for entry in hash_table:
 		if(entry == []):
@@ -126,23 +164,13 @@ def statistic_entries(hash_table, NUM_ENTRIES):
 	print(" ======== STATISTIC =========")
 	print("Number of empty entries: " + str(empty_entries))
 	print("Number of used entries: " + str(used_entries))
-	print("USED/TOTAL = " + str(used_entries/NUM_ENTRIES))
+	print("USED/TOTAL = " + str(used_entries/NUM_ENTRIES_PLAYERS))
 	print("Longest entries: " + str(longest))
 	print("Shortest entries: " + str(shortest))
 
-# ========    DEFINIÇÕES  =========
-ALPHABET_SIZE = 30
-# =================================
 
-class User:
-	def __init__(self, ID, ratings):
-		self.ID = ID
-		self.ratings = []
-		self.ratings.append(ratings)
-	def addRating(self, rating):
-		self.ratings.append(rating)
-	def getRatings(self):
-		return self.ratings
+
+
 
 
 # trie node
@@ -237,10 +265,8 @@ root.searchPrefix("Ana")
 
 
 
-
 # ===================================================================================
 # ==============
-# 
 # ----- Players -----
 # 1 - Creates a hash table for the players
 hash_players = new_hash_table(NUM_ENTRIES_PLAYERS)
