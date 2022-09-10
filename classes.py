@@ -1,3 +1,4 @@
+from definitions import *
 # =======================================================
 # ==============          CLASSES        ================
 # =======================================================
@@ -42,8 +43,8 @@ class Player:
 # --------------      User      -----------------
 class User:
 	def __init__(self, ID, ratings):
-		self.ID = ID				# the user ID
-		self.ratings = []			# a list of pairs (sofifa_id, rating) for each rating of the user
+		self.ID = ID				# the user ID - integer
+		self.ratings = []			# a list of pairs (sofifa_id, rating) for each rating of the user -> both integers
 		self.ratings.append(ratings)
 	def getUserID(self):
 		return self.ID
