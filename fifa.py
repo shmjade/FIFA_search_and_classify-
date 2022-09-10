@@ -1,8 +1,8 @@
 import csv
 import math
-import definitions
-import classes
-import functions
+from definitions import *
+from classes import *
+from functions import *
 
 
 # ==================================================================
@@ -10,18 +10,28 @@ import functions
 # ==================================================================
 
 # ----- Players -----
-# 1 - Creates a hash table for the players
+# 0 - Creates a hash table for the players and a table for the positions
 hash_players = new_hash_table(NUM_ENTRIES_PLAYERS)
+
+# 1 - Creates a Trie Tree for the players' names
+root=TrieNode(-1," ")
+
+
 # 2 - Opens the players.csv archive and inserts the players on the hash table
-read_players_csv(hash_players)
+hash_players, root = read_players_csv(hash_players, root)
+
 # 3 - Prints the statistic of the hash table
+print(" ------- PLAYERS HASH TABLE -------")
 statistic_entries(hash_players, NUM_ENTRIES_PLAYERS)
+
 
 # ----- Ratings -----
 # 1 - Creates a hash table for the ratings (users)
 hash_users = new_hash_table(NUM_ENTRIES_RATINGS)
+
 # 2 - Opens the ratings.csv archive and inserts the ratings on the hash table
-read_rating_csv(hash_players, hash_users)
+read_rating_csv(hash_users, hash_players)
+
 # 3 - Prints the statistic of the hash table
 statistic_entries(hash_users, NUM_ENTRIES_RATINGS)
 

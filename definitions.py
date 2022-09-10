@@ -29,6 +29,10 @@ NUM_ENTRIES_RATINGS = 524287 	# --> closest prime number to NUM_RATINGS
 
 # -------------------------------------
 '''
+****************************************************************************************************************************************************
+*********            Files description            **************************************************************************************************
+****************************************************************************************************************************************************
+
 The ratings.csv file contains the columns:
 |   user_id     |   sofifa_id   |   rating      |
 
@@ -41,7 +45,10 @@ The tags.csv file contains the columns:
 |   user_id	    |   sofifa_id	|   tag         |
 
 
--------     Researches      --------
+****************************************************************************************************************************************************
+*********            Researches             ********************************************************************************************************
+****************************************************************************************************************************************************
+
 2.1 According to the players' names
 --> input: "player" + '<prefix>'
 --> output: a table with all players whose name start with the given string '<prefix>', containing the columns:
@@ -117,16 +124,29 @@ IMPLEMENTATION:
 
 IMPLEMENTATION: 
 --> To get the information, the steps are:
-    1) creating an empty list of players of the given position
-    2) reading the 
-    3) when a player name is found, search for the player's information
+    --> Data structure 
+    1) creating a list of positions, in which each position contains an list of sofifa_ids of the players
+    1.1) create an empty list of positions
+    2) while reading the players.csv file, inserting the sofifa_id of the players in each position
+    2.1) to make the ranking easier, every time a player needs to be inserted, insert it ordered
+    --> Search
+    3) Map the position and return the list of the first <N> players of that position, as it is already ordered
 
 
 
 
 
+********************************************
+*******         HASH TABLES         ********
+********************************************
+1) Players -> by sofifa_id
+2) Positions -> by positions (INTEGER)
+3) Users -> by user_id
+4) Tags -> 
 
++++++++++ 1 Trie Tree
 
+tabela[0] -> CM .... lista de sofifas
 
 
 
