@@ -43,9 +43,91 @@ The tags.csv file contains the columns:
 
 -------     Researches      --------
 2.1 According to the players' names
---> input: a string "prefix"
---> output: a table with all players whose name start with the given string "prefix", containing the columns:
+--> input: "player" + '<prefix>'
+--> output: a table with all players whose name start with the given string '<prefix>', containing the columns:
 |   sofifa_id	|   name        |   player_positions    |	rating      	|   count        |
 
-OBS: the rating and count fields were not given 
+IMPLEMENTATION: 
+--> To get the information, the steps are:
+    1) finding the prefix
+    2) finding all names of players that start with the prefix 
+    3) when a player name is found, search for the player's information
+
+-------------   STEPS 1 AND 2 -------------
+--> To make the string searches faster, it was chosen to put the players' names on a Trie Tree in which the 
+    indicator of the end of a word is:
+    - the sofifa_id of the player if the letter is the end o a player's name
+    - -1 if the letter is not the end of a player's name
+
+-------------   STEP 3  -------------
+--> The rating and count fields were not given on any file, so it was decided to create a class to store the data:
+    --> name of the class: Player 
+    --> fields:
+		- sofifa_id 
+		- name
+		- position
+		- age
+		- height
+		- weight
+		- rating_count 
+		- rating_avg 
+--> To make the player's search faster, a hash table containing Player objects was created
+    --> number of entries: NUM_ENTRIES_PLAYERS = 9497
+    --> hash function: (a_player.getSofifaID())%NUM_ENTRIES_PLAYERS
+
+
+2.2 According to the users
+--> input: "user" + <USER ID>
+--> output: a table with a maximum of 20 players reviewed by the user, ordered by the best ratings, with columns:
+|   sofifa_id	|   name        |   global_rating       |	count         	|   user_rating        |
+
+IMPLEMENTATION:
+--> To get the information, the steps are:
+    1) finding the user
+    2) reading the list of ratings
+    3) for each rating, finding the player's data:
+    3.1) finding the player
+    3.2) reading the player's information
+    4) Order the list of players' ratings according to the highest ratings
+
+-------------   STEP 2  -------------
+--> To store each user's data, a new class was created:
+    --> name of the class: User
+    --> fields:    
+		- ID				# the user ID
+		- ratings			# a list of pairs (sofifa_id, rating) for each rating of the user
+-------------   STEP 1  -------------
+--> To make the user's search faster, a hash table containing User objects was created
+    --> number of entries: NUM_ENTRIES_RATINGS = 524287
+    --> hash function: (a_user.getUserID())%NUM_ENTRIES_RATINGS
+-------------   STEP 3  -------------
+--> To find and read the player's information, a search in the player's hash table is performed
+-------------   STEP 4  -------------
+--> To order the ratings, a sorting algorithm is used
+
+
+**************************************************************************************************************************************************************************
+** Se a classe não der certo, a alternativa dada pelo Comba é: criar uma outra tabela hash apenas com a contagem e média de avaliação dos jogadores
+
+2.3 Finding the best players of a given position
+--> input: top<N> '<position>'
+--> output: a table with the best <N> players of the position '<position>'
+--> OBS: only players with a minimum of 1000 ratings are eligible 
+|   sofifa_id	|   name        |   player_positions    |	rating      	|   count        |
+
+IMPLEMENTATION: 
+--> To get the information, the steps are:
+    1) creating an empty list of players of the given position
+    2) reading the 
+    3) when a player name is found, search for the player's information
+
+
+
+
+
+
+
+
+
+
 '''

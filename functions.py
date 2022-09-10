@@ -18,7 +18,7 @@ def statistic_entries(hash_table, NUM_ENTRIES):
 	empty_entries = 0
 	used_entries = 0
 	longest = 0
-	shortest = NUM_ENTRIES*3
+	shortest = NUM_ENTRIES*NUM_ENTRIES
 
 	for entry in hash_table:
 		if(entry == []):
