@@ -5,7 +5,7 @@
 '''
 import math
 import csv
-from classes import *
+from player import *
 
 # =======================================================
 # =============          FUNCTIONS        ===============
@@ -160,16 +160,39 @@ def hash_pos(string):
 	v=v%26
 	return v
 
+#Implementation based on https://www.geeksforgeeks.org/python-program-for-binary-insertion-sort/
+def player_sorted_insertion(list, player, start, end):	
+	if start==end: #Found the position
+		if list[start].getAverage()>player.getAverage():
+			return start #insert on the left
+		else:
+			return start+1 #Insert on the right
+	if start>end:
+		return start 
+	mid=(start+end)//2
+	if list[mid].getAverage() < player.getAverage():
+		return player_sorted_insertion(list, player, mid+1, end)
+	elif list[mid].getAverage() > player.getAverage():
+		return player_sorted_insertion(list, player, start, mid-1)
+	else:
+		return mid
+
+
 #List of positions used on the validation
 #l =['GK','SW','RWB','LWB','RB','LB','CB','DM','RW','LW','LM','RM','CM','AM','CF','RF','LF','ST']
 #results=[8, 5,  16,  17, 1, 2, 9, 18, 14, 15, 20, 19, 6, 3, 7, 25, 0, 4]
 
-hash_table_position=new_hash_table(26)
-for i in hash_players:
-	for j in hash_player:
-		if hash_player[i][j] is not None:
-			str_pos= hash_player[i][j].getPosition()
+def map_positions(hash_players):
+	hash_table_position=new_hash_table(26)
+	for entry in hash_players:
+		for p in entry:			
+			str_pos=p.getPosition()
 			positions=str_pos.split(",")
-			for p in positions:
-				index=hash_pos(i)
-				hash_table_position[index] ##insere ordenado
+			for pos in positions:
+				index=hash_pos(pos)
+				if len(hash_table_position[index])==0:
+					hash_table_position[index].append(p)
+				else:
+					pos=player_sorted_insertion(hash_table_position[index],p,0,len(hash_table_position[index])-1)
+					hash_table_position[index]=hash_table_position[index][:pos]+[p]+hash_table_position[index][pos:]
+	return hash_table_position

@@ -22,6 +22,9 @@ class Player:
 	def getPosition(self):
 		return self.position
 
+	def getAverage(self):
+		return self.position
+
 	def setAverage(self, rating):
 		# Multiplicamos a média anterior pela contagem anterior
 		self.rating_avg = self.rating_avg*(self.rating_count-1)
