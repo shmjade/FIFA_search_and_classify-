@@ -2,58 +2,6 @@ from definitions import *
 # =======================================================
 # ==============          CLASSES        ================
 # =======================================================
-
-
-# -----------------------------------------------
-# --------------     Player     -----------------
-class Player:
-	def __init__(self, sofifa_id, name, position, age, height, weight): 
-		self.sofifa_id = sofifa_id 
-		self.name = name
-		self.position = position
-		self.age = age
-		self.height = height
-		self.weight = weight
-		self.rating_count = 0   # a contagem inicia como zero
-		self.rating_avg = 0     # a média inicia como zero
-
-	def incCount(self):
-		# Incrementamos a contagem
-		self.rating_count += 1
-	
-	def getSofifaID(self):
-		return self.sofifa_id
-
-	def getPosition(self):
-		return self.position
-
-	def setAverage(self, rating):
-		# Multiplicamos a média anterior pela contagem anterior
-		self.rating_avg = self.rating_avg*(self.rating_count-1)
-		# Somamos a nova avaliação
-		self.rating_avg += rating
-		# Dividimos pela nova contagem e obtemos a média atualizada
-		self.rating_avg = self.rating_avg/self.rating_count
-
-	def __str__(self):
-		return (str(self.sofifa_id) + " " + self.name + " " +  self.position + " " +  str(self.age) + " " +  str(self.height) + " " +  str(self.weight))
-
-
-# -----------------------------------------------
-# --------------      User      -----------------
-class User:
-	def __init__(self, ID, ratings):
-		self.ID = ID				# the user ID - integer
-		self.ratings = []			# a list of pairs (sofifa_id, rating) for each rating of the user -> both integers
-		self.ratings.append(ratings)
-	def getUserID(self):
-		return self.ID
-	def addRating(self, rating):
-		self.ratings.append(rating)
-	def getRatings(self):
-		return self.ratings
-
-
 # -----------------------------------------------
 # -------------    Trie Node    -----------------
 class TrieNode:

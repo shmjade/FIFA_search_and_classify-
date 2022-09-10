@@ -1,7 +1,9 @@
 import csv
 import math
 from definitions import *
-from classes import *
+from player import *
+from user import *
+from trie_node import *
 from functions import *
 
 
