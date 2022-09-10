@@ -30,8 +30,9 @@ statistic_entries(hash_players, NUM_ENTRIES_PLAYERS)
 hash_users = new_hash_table(NUM_ENTRIES_RATINGS)
 
 # 2 - Opens the ratings.csv archive and inserts the ratings on the hash table
+print(" ------- USERS HASH TABLE -------")
 read_rating_csv(hash_users, hash_players)
-
+print(" ------- END -------")
 # 3 - Prints the statistic of the hash table
 statistic_entries(hash_users, NUM_ENTRIES_RATINGS)
 

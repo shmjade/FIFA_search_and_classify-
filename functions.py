@@ -105,6 +105,14 @@ def find_player_index(hash_table, sofifa_id):
 		i+=1
 	return -1
 
+#returns the index of the player on a entry of the players hash table
+def find_user_index(hash_users, user_id):
+	i=0
+	for user in hash_users[(user_id)%NUM_ENTRIES_RATINGS]:
+		if(user.getUserID==user_id):
+			return i 
+		i+=1
+	return -1	# if the user is not on the list, return -1
 
 # Opens the rating.csv file and:
 # - inserts the user on the hash_users table;
@@ -114,18 +122,26 @@ def read_rating_csv(hash_users, hash_players):
 		line_count = 0
 		csv_table = csv.reader(archive, delimiter=",")
 		i=0
+		count = 0
 		for row in csv_table:
 			if(i!=0):
+				if(count==1000):
+					print("OLOKO = ", i)
+					count = 0
 				rating = (int(row[1]), float(row[2]))	# row[1] is the sofifa_id and row[2] is the rating
+				e = find_user_index(hash_users, int(row[0]))
 				# If this is the user's first rating, init the user and insert it:
-				if(user_first_rating(hash_users, int(row[0]))==1):
+				if(e==-1):
 					hash_users = insert_hash_users(hash_users, User(int(row[0]), rating))	# row[0] is the user_id
+
 				# If the user has already been inserted, only append this new rating:
 				else:
-					(hash_users[row[0]%NUM_ENTRIES_RATINGS]).addRating((int(row[1]), float(row[2])))
+					j = int(row[0])%NUM_ENTRIES_RATINGS
+					(hash_users[j][e]).addRating((int(row[1]), float(row[2])))
 				# Update the player's rating:
 				hash_players = insert_rating_player(hash_players, rating)
 			i+=1
+			count+=1
 	return hash_users
 
 
