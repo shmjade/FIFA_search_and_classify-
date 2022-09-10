@@ -23,6 +23,9 @@ class Player:
 	def getSofifaID(self):
 		return self.sofifa_id
 
+	def getPosition(self):
+		return self.position
+
 	def setAverage(self, rating):
 		# Multiplicamos a média anterior pela contagem anterior
 		self.rating_avg = self.rating_avg*(self.rating_count-1)
@@ -131,3 +134,6 @@ class TrieNode:
 			printPlayer(node.getEndOfWord())
 		if node.children[total-1] is not None:
 			self.printChildren(node.children[total-1], string)
+
+
+

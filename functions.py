@@ -1,4 +1,4 @@
-
+import math
 # =======================================================
 # =============          FUNCTIONS        ===============
 # =======================================================
@@ -95,3 +95,14 @@ def read_rating_csv(hash_users):
 	return hash_users
 
 
+def hash_pos(string):
+	v=0
+	for i in range(0,len(string)):
+		v=v+math.ceil(pow(23, 3 - i - 1)*(1 + ord(string[i].lower())-97))
+	v=v%47
+	v=v%26
+	return v
+
+#List of positions used on the validation
+#l =['GK','SW','RWB','LWB','RB','LB','CB','DM','RW','LW','LM','RM','CM','AM','CF','RF','LF','ST']
+#results=[8,5,16,17,19,6,3,7,25,0,4]
