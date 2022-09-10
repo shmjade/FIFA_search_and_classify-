@@ -3,6 +3,7 @@
 2 - colocar a parte de tags
 
 '''
+import math
 import csv
 from classes import *
 
@@ -145,3 +146,30 @@ def read_rating_csv(hash_users, hash_players):
 	return hash_users
 
 
+
+
+# --------------------------------------------------
+# -------------     positions    -------------------
+
+
+def hash_pos(string):
+	v=0
+	for i in range(0,len(string)):
+		v=v+math.ceil(pow(23, 3 - i - 1)*(1 + ord(string[i].lower())-97))
+	v=v%47
+	v=v%26
+	return v
+
+#List of positions used on the validation
+#l =['GK','SW','RWB','LWB','RB','LB','CB','DM','RW','LW','LM','RM','CM','AM','CF','RF','LF','ST']
+#results=[8, 5,  16,  17, 1, 2, 9, 18, 14, 15, 20, 19, 6, 3, 7, 25, 0, 4]
+
+hash_table_position=new_hash_table(26)
+for i in hash_players:
+	for j in hash_player:
+		if hash_player[i][j] is not None:
+			str_pos= hash_player[i][j].getPosition()
+			positions=str_pos.split(",")
+			for p in positions:
+				index=hash_pos(i)
+				hash_table_position[index] ##insere ordenado
