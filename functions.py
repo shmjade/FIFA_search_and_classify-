@@ -48,8 +48,13 @@ def statistic_entries(hash_table, NUM_ENTRIES):
 	print("Shortest entries: " + str(shortest))
 	
 
-
-
+# Map a string into a hash value from 0 e M−1:
+# F(string) = (string[0]*3^0 + string[1]*3^1 + ... + string[n-2]*3^(n-2) + string[n-1]*3^(n-1))%M
+def maping(word, M):
+    sum=0
+    for i in range(0,len(word)):
+        sum += ord(word[i].lower())*math.pow(3,i)
+    return math.floor(int(sum))%M
 
 
 # --------------------------------------------------
@@ -150,34 +155,6 @@ def find_user_index(hash_users, user_id):
 # Opens the rating.csv file and:
 # - inserts the user on the hash_users table;
 # - updates the ratings of the players on hash_players
-"""def read_rating_csv(hash_users, hash_players):
-	with open("rating.csv", "r") as archive:
-		line_count = 0
-		csv_table = csv.reader(archive, delimiter=",")
-		i=0
-		start = time.time()
-		for row in csv_table:
-			if(i!=0):
-				if(i%1000000==0):
-					print("OLOKO = ", i)
-					end=time.time()
-					print(end - start)
-					start=end
-				rating = (int(row[1]), float(row[2]))	# row[1] is the sofifa_id and row[2] is the rating
-				e = find_user_index(hash_users, int(row[0]))				
-				# If this is the user's first rating, init the user and insert it:
-				if(e==-1):
-					hash_users = insert_hash_users(hash_users, User(int(row[0]), rating))	# row[0] is the user_id
-
-				# If the user has already been inserted, only append this new rating:
-				else:
-					j = int(row[0])%NUM_ENTRIES_RATINGS
-					(hash_users[j][e]).addRating((int(row[1]), float(row[2])))
-				'''
-				# Update the player's rating:
-				hash_players = insert_rating_player(hash_players, rating)				
-			i+=1			
-	return hash_users"""
 def read_rating_csv(hash_users, hash_players):
 	with open("rating.csv", "r") as archive:
 		line_count = 0
@@ -188,7 +165,7 @@ def read_rating_csv(hash_users, hash_players):
 		for row in csv_table:
 			if(i!=0):
 				if(i%1000000==0):
-					print("OLOKO = ", i)
+					print("Ratings = ", i)
 					end=time.time()
 					print(end - start)
 					start=end
@@ -256,5 +233,48 @@ def map_positions(hash_players):
 	return hash_table_position
 
 
-# ==============================================================
+# ===================  Tags  ===================
+def tags_sorted_insertion(list, sofifa_id, start, end):	
+	if start==end: #Found the position
+		if list[start]==sofifa_id:
+			return 0
+		elif list[start]>sofifa_id:
+			return start #insert on the left
+		else:
+			return start+1 #Insert on the right
+	if start>end:
+		return start 
+	mid=(start+end)//2
+	if list[mid] < sofifa_id:
+		return tags_sorted_insertion(list, sofifa_id, mid+1, end)
+	elif list[mid] > sofifa_id:
+		return tags_sorted_insertion(list, sofifa_id, start, mid-1)
+	else:
+		return mid
 
+def read_tags_csv(hash_tags):
+	with open("tags.csv", "r") as archive:
+		line_count = 0
+		csv_table = csv.reader(archive, delimiter=",")
+		next(csv_table, None)  # skip the headers
+		i=0
+		start=time.time()
+		for row in csv_table:
+			if(i%100==0):
+					print("Tags = ", i)
+					end=time.time()
+					print(end - start)
+					start=end
+			if(i!=0):
+				# Insert the tag on the hash table
+				entry=hash_tags[maping(row[2].split(" "), NUM_ENTRIES_TAGS)] #entry on the hash table
+				j=0
+				while(j<len(entry)): #while hasnt reached all elements in the hash entry
+					if entry[j][0]==row[2]: #entry[j][0]=tag text
+						entry[j].append(row[1]) #Apend the so_fifa id into the tag's list
+						break #leave while loop
+				if j==len(entry):
+					entry.append([row[2]])#Add a new tag on the list
+					entry[j].append(row[1]) #Add the sofifa_id to the tag
+			i+=1
+	return hash_tags

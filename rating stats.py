@@ -20,3 +20,11 @@ user_id      138493
 sofifa_id     18929
 rating            9
 dtype: int64
+
+
+import pandas
+
+file=pandas.read_csv("tags.csv")
+user_id      68632
+sofifa_id    18944
+tag            936

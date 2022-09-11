@@ -30,10 +30,9 @@ statistic_entries(hash_players, NUM_ENTRIES_PLAYERS)
 
 # ----- Ratings -----
 # 1 - Creates a hash table for the ratings (users)
-#hash_users = new_hash_table(NUM_ENTRIES_RATINGS)
 
+hash_users = [0]*NUM_ENTRIES_RATINGS #Number of distinct Users
 
-hash_users = [0]*138494 #Number of distinct Users
 
 
 # 2 - Opens the ratings.csv archive and inserts the ratings on the hash table
@@ -44,7 +43,15 @@ print(" ------- END -------")
 #statistic_entries(hash_users, NUM_ENTRIES_RATINGS)
 
 # ----- Trie ----
+
+
+#----- Ratings -----
+# 1 - Creates a hash table for the tags
+hash_tags = new_hash_table(NUM_ENTRIES_TAGS)
+
+# 2 - Opens the tags.csv archive and inserts the ratings on the hash table
+hash_tags = read_tags_csv(hash_tags)
+
 menu(root, hash_players)
-#search1("LIO", root, hash_players)
 
 
