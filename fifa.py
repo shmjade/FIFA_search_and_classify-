@@ -5,6 +5,7 @@ from player import *
 from user import *
 from trie_node import *
 from functions import *
+from menu import *
 
 
 # ==================================================================
@@ -33,6 +34,7 @@ statistic_entries(hash_players, NUM_ENTRIES_PLAYERS)
 hash_users = [0]*NUM_ENTRIES_RATINGS #Number of distinct Users
 
 
+
 # 2 - Opens the ratings.csv archive and inserts the ratings on the hash table
 print(" ------- USERS HASH TABLE -------")
 read_rating_csv(hash_users, hash_players)
@@ -41,9 +43,6 @@ print(" ------- END -------")
 #statistic_entries(hash_users, NUM_ENTRIES_RATINGS)
 
 # ----- Trie ----
-found = root.searchPrefix("Lio")
-found.printChildren(found,'Lio', hash_players)
-
 
 
 #----- Ratings -----
@@ -52,3 +51,7 @@ hash_tags = new_hash_table(NUM_ENTRIES_TAGS)
 
 # 2 - Opens the tags.csv archive and inserts the ratings on the hash table
 hash_tags = read_tags_csv(hash_tags)
+
+menu(root, hash_players)
+
+
