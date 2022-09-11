@@ -29,19 +29,15 @@ statistic_entries(hash_players, NUM_ENTRIES_PLAYERS)
 
 # ----- Ratings -----
 # 1 - Creates a hash table for the ratings (users)
-hash_users = new_hash_table(NUM_ENTRIES_RATINGS)
+#hash_users = new_hash_table(NUM_ENTRIES_RATINGS)
 
 # 2 - Opens the ratings.csv archive and inserts the ratings on the hash table
 print(" ------- USERS HASH TABLE -------")
-read_rating_csv(hash_users, hash_players)
+#read_rating_csv(hash_users, hash_players)
 print(" ------- END -------")
 # 3 - Prints the statistic of the hash table
-statistic_entries(hash_users, NUM_ENTRIES_RATINGS)
+#statistic_entries(hash_users, NUM_ENTRIES_RATINGS)
 
-# ----- Trie -----
-root=TrieNode(-1," ")
-root.insertTrie("Ana", 5)
-root.insertTrie("astolfo", 10)
-root.insertTrie("bia", 12)
-root.printChildren(root,'')
-root.searchPrefix("Ana")
+# ----- Trie ----
+found = root.searchPrefix("Lio")
+found.printChildren(found,'Lio', hash_players)

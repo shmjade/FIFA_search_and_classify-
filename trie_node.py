@@ -1,4 +1,6 @@
 from definitions import *
+from functions import *
+
 # =======================================================
 # ==============          CLASSES        ================
 # =======================================================
@@ -68,21 +70,24 @@ class TrieNode:
 					novo=TrieNode(-1, l)
 					current.children[index]=novo
 			if(i==len(key)-1):
-				current.children[index].EndOfWord=code
+				current.children[index].EndOfWord=int(code)
 			current=current.children[index]
 
-	def printChildren(self, node, string):
+	def printChildren(self, node, string, hash_players):
 		string=string+node.letter
 		if node==None:
 			return 
 		total=len(node.children)
 		for i in range(0, total-1):
 			if node.children[i] is not None:
-				self.printChildren(node.children[i], string)
+				self.printChildren(node.children[i], string, hash_players)
 		if node.EndOfWord!=-1:
-			printPlayer(node.getEndOfWord())
+			#print("end of word/sofifa = ",node.EndOfWord)
+			printPlayer_1(hash_players, node.getEndOfWord())
+			#print("Sofifa = ", hash_players[node.getEndOfWord()%NUM_ENTRIES_PLAYERS][find_player_index(hash_players, node.getEndOfWord())].getSofifaID())
+			#print("Name = " + (hash_players[node.getEndOfWord()%NUM_ENTRIES_PLAYERS][find_player_index(hash_players, node.getEndOfWord())]).getName())
 		if node.children[total-1] is not None:
-			self.printChildren(node.children[total-1], string)
+			self.printChildren(node.children[total-1], string, hash_players)
 
 
 
