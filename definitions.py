@@ -19,9 +19,9 @@ NUM_ENTRIES_PLAYERS = 9497  # --> closest prime number to NUM_PLAYERS
 
 # ----------- rating.csv -----------
 # Total number of ratings:
-NUM_RATINGS = 1048576 			# Number of rows on ratings.csv
+NUM_RATINGS = 24188078 			# Number of rows on ratings.csv
 # Number of entries on Ratings hash table
-NUM_ENTRIES_RATINGS = 524287 	# --> closest prime number to NUM_RATINGS
+NUM_ENTRIES_RATINGS = 12093869	# --> closest prime number to NUM_RATINGS
 
 # ----------- tags.csv -----------
 

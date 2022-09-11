@@ -8,8 +8,7 @@ from definitions import *
 class User:
 	def __init__(self, ID, ratings):
 		self.ID = ID				# the user ID - integer
-		self.ratings = []			# a list of pairs (sofifa_id, rating) for each rating of the user -> both integers
-		self.ratings.append(ratings)
+		self.ratings = [ratings]			# a list of pairs (sofifa_id, rating) for each rating of the user -> both integers
 	def getUserID(self):
 		return self.ID
 	def addRating(self, rating):
