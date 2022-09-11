@@ -5,6 +5,7 @@
 '''
 import math
 import csv
+from unittest import skip
 from player import *
 from user import *
 from trie_node import *
@@ -132,7 +133,7 @@ def find_user_index(hash_users, user_id):
 # Opens the rating.csv file and:
 # - inserts the user on the hash_users table;
 # - updates the ratings of the players on hash_players
-def read_rating_csv(hash_users, hash_players):
+"""def read_rating_csv(hash_users, hash_players):
 	with open("rating.csv", "r") as archive:
 		line_count = 0
 		csv_table = csv.reader(archive, delimiter=",")
@@ -146,8 +147,7 @@ def read_rating_csv(hash_users, hash_players):
 					print(end - start)
 					start=end
 				rating = (int(row[1]), float(row[2]))	# row[1] is the sofifa_id and row[2] is the rating
-				'''
-				e = find_user_index(hash_users, int(row[0]))
+				e = find_user_index(hash_users, int(row[0]))				
 				# If this is the user's first rating, init the user and insert it:
 				if(e==-1):
 					hash_users = insert_hash_users(hash_users, User(int(row[0]), rating))	# row[0] is the user_id
@@ -158,10 +158,34 @@ def read_rating_csv(hash_users, hash_players):
 					(hash_users[j][e]).addRating((int(row[1]), float(row[2])))
 				'''
 				# Update the player's rating:
-				hash_players = insert_rating_player(hash_players, rating)
+				hash_players = insert_rating_player(hash_players, rating)				
+			i+=1			
+	return hash_users"""
+def read_rating_csv(hash_users, hash_players):
+	with open("rating.csv", "r") as archive:
+		line_count = 0
+		csv_table = csv.reader(archive, delimiter=",")
+		next(csv_table, None)  # skip the headers
+		i=0
+		start = time.time()
+		for row in csv_table:
+			if(i!=0):
+				if(i%1000000==0):
+					print("OLOKO = ", i)
+					end=time.time()
+					print(end - start)
+					start=end
+				rating = (int(row[1]), float(row[2]))	# row[1] is the sofifa_id and row[2] is the rating
+				# If this is the user's first rating, init the user and insert it:
+				if(hash_users[int(row[0])]==0):
+					hash_users[int(row[0])] = User(int(row[0]), rating)	# row[0] is the user_id
+				# If the user has already been inserted, only append this new rating:
+				else:					
+					hash_users[int(row[0])].addRating(rating)
+				# Update the player's rating:
+				hash_players = insert_rating_player(hash_players, rating)				
 			i+=1			
 	return hash_users
-
 
 
 

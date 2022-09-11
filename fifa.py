@@ -31,6 +31,10 @@ statistic_entries(hash_players, NUM_ENTRIES_PLAYERS)
 # 1 - Creates a hash table for the ratings (users)
 #hash_users = new_hash_table(NUM_ENTRIES_RATINGS)
 
+=======
+hash_users = [0]*138494 #Number of distinct Users
+
+
 # 2 - Opens the ratings.csv archive and inserts the ratings on the hash table
 print(" ------- USERS HASH TABLE -------")
 #read_rating_csv(hash_users, hash_players)
