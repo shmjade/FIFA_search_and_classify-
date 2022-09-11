@@ -75,6 +75,14 @@ def read_players_csv(hash_players, root):
 			i+=1
 	return hash_players, root
 
+def printPlayer_1(hash_players, sofifa_id):
+	i = sofifa_id%NUM_ENTRIES_PLAYERS
+	j = find_player_index(hash_players, sofifa_id)
+	player = hash_players[i][j]
+	print(str(player.getSofifaID()), end="")
+	print(" | " + str(player.getName()), end="")
+	print(" | " + str(player.getPosition()), end="")
+	print(" | " + str(player.getAverage()))
 
 # --------------------------------------------------
 # -------------     ratings.csv    -----------------
@@ -102,10 +110,13 @@ def user_first_rating(hash_users, user_ID):  #------------------------------> TE
 	return 1
 
 #returns the index of the player on a entry of the players hash table
-def find_player_index(hash_table, sofifa_id):
+def find_player_index(hash_players, sofifa_id):
 	i=0
-	for player in hash_table[(sofifa_id)%NUM_ENTRIES_PLAYERS]:
-		if(player.getSofifaID==sofifa_id):
+	for player in hash_players[(sofifa_id)%NUM_ENTRIES_PLAYERS]:
+		#print("sofifa = ", player.getSofifaID())
+		#print("name = " + player.getName())
+		#print("i = ", i)
+		if(player.getSofifaID()==sofifa_id):
 			return i 
 		i+=1
 	return -1
@@ -145,6 +156,7 @@ def find_user_index(hash_users, user_id):
 				else:
 					j = int(row[0])%NUM_ENTRIES_RATINGS
 					(hash_users[j][e]).addRating((int(row[1]), float(row[2])))
+				'''
 				# Update the player's rating:
 				hash_players = insert_rating_player(hash_players, rating)				
 			i+=1			
@@ -225,3 +237,7 @@ def map_positions(hash_players):
 					pos=player_sorted_insertion(hash_table_position[index],p,0,len(hash_table_position[index])-1)
 					hash_table_position[index]=hash_table_position[index][:pos]+[p]+hash_table_position[index][pos:]
 	return hash_table_position
+
+
+# ==============================================================
+
