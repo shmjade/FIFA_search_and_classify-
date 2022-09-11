@@ -6,6 +6,9 @@
 import math
 import csv
 from player import *
+from user import *
+from trie_node import *
+import time
 
 # =======================================================
 # =============          FUNCTIONS        ===============
@@ -123,12 +126,14 @@ def read_rating_csv(hash_users, hash_players):
 		line_count = 0
 		csv_table = csv.reader(archive, delimiter=",")
 		i=0
-		count = 0
+		start = time.time()
 		for row in csv_table:
 			if(i!=0):
-				if(count==1000):
+				if(i%1000000==0):
 					print("OLOKO = ", i)
-					count = 0
+					end=time.time()
+					print(end - start)
+					start=end
 				rating = (int(row[1]), float(row[2]))	# row[1] is the sofifa_id and row[2] is the rating
 				e = find_user_index(hash_users, int(row[0]))
 				# If this is the user's first rating, init the user and insert it:
@@ -141,8 +146,7 @@ def read_rating_csv(hash_users, hash_players):
 					(hash_users[j][e]).addRating((int(row[1]), float(row[2])))
 				# Update the player's rating:
 				hash_players = insert_rating_player(hash_players, rating)
-			i+=1
-			count+=1
+			i+=1			
 	return hash_users
 
 
