@@ -19,11 +19,17 @@ class Player:
 	def getSofifaID(self):
 		return self.sofifa_id
 
+	def getName(self):
+			return self.name
+
 	def getPosition(self):
 		return self.position
 
 	def getAverage(self):
-		return self.position
+		return self.rating_avg
+
+	def getCount(self):
+		return self.rating_count
 
 	def setAverage(self, rating):
 		# Multiplicamos a média anterior pela contagem anterior
