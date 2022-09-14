@@ -36,9 +36,9 @@ hash_users = [0]*NUM_ENTRIES_RATINGS #Number of distinct Users
 
 
 # 2 - Opens the ratings.csv archive and inserts the ratings on the hash table
-print(" ------- USERS HASH TABLE -------")
-read_rating_csv(hash_users, hash_players)
-print(" ------- END -------")
+#print(" ------- USERS HASH TABLE -------")
+#read_rating_csv(hash_users, hash_players)
+#print(" ------- END -------")
 # 3 - Prints the statistic of the hash table
 #statistic_entries(hash_users, NUM_ENTRIES_RATINGS)
 
