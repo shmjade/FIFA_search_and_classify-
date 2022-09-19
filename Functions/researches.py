@@ -16,7 +16,8 @@ def search2(user_id, hash_users):
 	print(' {:10s} | {:49s} | {:14s} | {:7s} | {:12s}'.format("sofifa_id","name of the player", "global rating", "count", 'user rating'))
 
 
-def sort_rating(hash_users)
+def sort_rating(hash_users):
+	print("oi")
 '''
 2.2 According to the users
 --> input: "user" + <USER ID>
@@ -27,15 +28,14 @@ def sort_rating(hash_users)
 # --------------------------------------------------
 # --------------    third search    ----------------
 
-def search3(user_id, hash_users):
+def search3(user_id, hash_users, hash_players):
 	print("----- PLAYERS REVIEWED BY USER " + str(user_id) + " -----")
 	print(' {:10s} | {:49s} | {:14s} | {:7s} | {:12s}'.format("sofifa_id","name of the player", "global rating", "count", 'user rating'))
+	print(' {:10s} | {:49s} | {:14s} | {:7s} | {:12s}'.format("sofifa_id","name of the player", "global rating", "count", 'user rating'))
+
+# Prints the best (top 20) players review by the user
+def best_by_user(user_id, hash_users, hash_players):
 	
-    print(' {:10s} | {:49s} | {:14s} | {:7s} | {:12s}'.format("sofifa_id","name of the player", "global rating", "count", 'user rating'))
-
-def printPlayer_2(hash_players, sofifa_id, user_rating):
-
-
 '''
 2.3 Finding the best players of a given position
 --> input: top<N> '<position>'

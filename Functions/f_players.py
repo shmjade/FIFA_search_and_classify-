@@ -35,14 +35,13 @@ def read_players_csv(hash_players, root):
 
 # --------------------------------------------------
 # -------------     ratings.csv    -----------------
-
 def insert_rating_player(hash_players, rating): #------------------------------> rating = (sofifa_id, rating)
 	# increment the rating count
 	i = rating[0]%NUM_ENTRIES_PLAYERS
 	j = find_player_index(hash_players, rating[0])
 	(hash_players[i][j]).incCount()
 	# Add the new rating and set the average
-	(hash_players[i][j]).setAverage(rating[1])
+	(hash_players[i][j]).sumAverage(rating[1])
 	return hash_players
 
 # --------------------------------------------------
@@ -52,9 +51,6 @@ def insert_rating_player(hash_players, rating): #------------------------------>
 def find_player_index(hash_players, sofifa_id):
 	i=0
 	for player in hash_players[(sofifa_id)%NUM_ENTRIES_PLAYERS]:
-		#print("sofifa = ", player.getSofifaID())
-		#print("name = " + player.getName())
-		#print("i = ", i)
 		if(player.getSofifaID()==sofifa_id):
 			return i 
 		i+=1
