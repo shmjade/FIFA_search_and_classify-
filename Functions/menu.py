@@ -1,7 +1,10 @@
 # --------------------------------------------------
 # -------------        menu        -----------------
+from researches import *
+from definitions import NUM_ENTRIES_RATINGS
 
-def menu(root, hash_players):
+#[int] Prints the menu options, waits for the user input and return the user option
+def menu(root, hash_players, hash_users):
 	print("\t--- MENU ---")
 	print("Options:")
 	print("player <prefix of the names>")
@@ -19,6 +22,7 @@ def menu(root, hash_players):
 				search1(option.split()[1], root, hash_players)
 				opt = 1
 			case 'user':
+				search2(int(option.split()[1]), hash_users)
 				opt = 2
 			case 'top':
 				opt = 3
@@ -29,16 +33,8 @@ def menu(root, hash_players):
 			case default:
 				print("INPUT NOT VALID")
 				opt = 0
-	
+	return opt
 		
 
 
 
-# --------------------------------------------------
-# -------------     first search    -----------------
-
-def search1(prefix, root, hash_players):
-	print("----- PLAYERS THAT START WITH " + prefix + " -----")
-	print(' {:10s} | {:49s} | {:14s} | {:7s} | {:7s}'.format("sofifa_id","name of the player", "positions", "rating", 'count'))
-	found = root.searchPrefix(prefix)
-	found.printChildren(found,prefix, hash_players)

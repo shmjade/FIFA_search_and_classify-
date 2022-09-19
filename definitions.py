@@ -22,7 +22,8 @@ NUM_ENTRIES_PLAYERS = 9497  # --> closest prime number to NUM_PLAYERS
 NUM_RATINGS = 24188078 			# Number of rows on ratings.csv
 # Number of entries on Ratings hash table
 NUM_ENTRIES_RATINGS = 138494	# Number of users
-
+# Number of user entries:
+NUM_ENTRIES_USERS = 138494      # Number of users
 # ----------- tags.csv -----------
 NUM_TAGS = 936 			# Number of distinct tags
 NUM_ENTRIES_TAGS = 463
@@ -133,8 +134,11 @@ IMPLEMENTATION:
     --> Search
     3) Map the position and return the list of the first <N> players of that position, as it is already ordered
 
-
-
+2.4. According to players' tags 
+--> input: tags <list of tags>
+--> output: a table with all players that have the given list of tags
+|   sofifa_id	|   name        |   player_positions    |	rating      	|   count        |
+Example: tags ‘Brazil’ ‘Dribbler’
 
 
 ********************************************
