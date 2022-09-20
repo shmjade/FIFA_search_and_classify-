@@ -51,7 +51,7 @@ end = time.time()
 print(" ------- END USERS -------")
 # 3 - Prints the statistic of the hash table
 print("Load time = "+ str(end-start))
-#statistic_entries(hash_users, NUM_ENTRIES_RATINGS)
+statistic_entries(hash_users, NUM_ENTRIES_RATINGS)
 
 # ----- Trie ----
 

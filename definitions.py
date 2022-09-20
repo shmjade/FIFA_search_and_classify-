@@ -79,7 +79,7 @@ IMPLEMENTATION:
 		- height
 		- weight
 		- rating_count 
-		- rating_avg 
+		- rating_sum 
 --> To make the player's search faster, a hash table containing Player objects was created
     --> number of entries: NUM_ENTRIES_PLAYERS = 9497
     --> hash function: (a_player.getSofifaID())%NUM_ENTRIES_PLAYERS
