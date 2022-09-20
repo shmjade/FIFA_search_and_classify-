@@ -27,9 +27,11 @@ def read_rating_csv(hash_users, hash_players):
 		next(csv_table, None)  # skip the headers
 		for row in csv_table:
 			# Insert the tuple (sofifa_id, rating) on the users' hash table:
-			hash_users[int(row[0])].append((int(row[1]), float(row[2])))
+			sofifa_id=int(row[1])
+			rating=float(row[2])
+			hash_users[int(row[0])].append((sofifa_id, rating))
 			# Update the player's rating:
-			hash_players = insert_rating_player(hash_players, (int(row[1]), float(row[2])))				
+			hash_players = insert_rating_player(hash_players, (sofifa_id, rating))				
 	return hash_users, hash_players
 
 

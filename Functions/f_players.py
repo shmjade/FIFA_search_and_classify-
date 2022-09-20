@@ -39,9 +39,8 @@ def insert_rating_player(hash_players, rating): #------------------------------>
 	# increment the rating count
 	i = rating[0]%NUM_ENTRIES_PLAYERS
 	j = find_player_index(hash_players, rating[0])
-	(hash_players[i][j]).incCount()
 	# Add the new rating and set the average
-	(hash_players[i][j]).sumAverage(rating[1])
+	(hash_players[i][j]).addRating(rating[1])
 	return hash_players
 
 # --------------------------------------------------
@@ -50,7 +49,8 @@ def insert_rating_player(hash_players, rating): #------------------------------>
 #returns the index of the player on a entry of the players hash table
 def find_player_index(hash_players, sofifa_id):
 	i=0
-	for player in hash_players[(sofifa_id)%NUM_ENTRIES_PLAYERS]:
+	entry_index=(sofifa_id)%NUM_ENTRIES_PLAYERS
+	for player in hash_players[entry_index]:
 		if(player.getSofifaID()==sofifa_id):
 			return i 
 		i+=1

@@ -34,13 +34,15 @@ class Player:
 
 	# The rating_sum atribute is, when the ratings are being 
 	# read, the sum of the ratings
-	def sumAverage(self, rating):
+	def addRating(self, rating):
 		self.rating_sum = self.rating_sum + rating
+		self.rating_count =self.rating_count+ 1
+
 	
 	# The rating_sum atribute only represents the average when 
-	# a research is made 
-	def setAverage(self, rating):
-		self.rating_sum = self.rating_sum/self.rating_count
+	# a research is made -- DEPRECATED
+	#def setAverage(self, rating):
+	#	self.rating_sum = self.rating_sum/self.rating_count
 
 	def __str__(self):
 		return (str(self.sofifa_id) + " " + self.name + " " +  self.position + " " +  str(self.age) + " " +  str(self.height) + " " +  str(self.weight))
