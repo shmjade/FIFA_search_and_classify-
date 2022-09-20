@@ -21,7 +21,7 @@ def menu(root, hash_players, hash_users):
 				search1(option.split()[1], root, hash_players)
 				opt = 1
 			case 'user':
-				search2(int(option.split()[1]), hash_users)
+				search2(int(option.split()[1]), hash_users, hash_players)
 				opt = 2
 			case 'top':
 				opt = 3
