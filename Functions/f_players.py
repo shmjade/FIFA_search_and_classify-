@@ -1,5 +1,6 @@
 import csv
 from Classes.player import *
+from Functions.f_positions import hash_pos
 # --------------------------------------------------
 # -------------     players.csv    -----------------
 
@@ -11,7 +12,7 @@ def insert_hash_players(hash_players, a_player):
 # Opens the players.csv archive and:
 # - inserts the players on the hash table of players
 # - inserts the name of each player on the Trie Tree
-def read_players_csv(hash_players, root):
+def read_players_csv(hash_players, root, hash_positions):
 	max_name = 0
 	max_position = 0
 
@@ -26,12 +27,13 @@ def read_players_csv(hash_players, root):
 				if(len(row[2])>max_position):
 					max_position = len(row[2])				# Insert the player on the hash table
 				hash_players = insert_hash_players(hash_players, (Player(int(row[0]), row[1], row[2], int(row[3]), int(row[4]), int(row[5]))))
+				hash_positions[hash_pos(row[2])].append(Player(int(row[0]), row[1], row[2], int(row[3]), int(row[4]), int(row[5])))
 				# Insert the name of the player on the Trie Tree
 				root.insertTrie(row[1], row[0])     # row[1] is the name and row[0] is the sofifa_id
 			i+=1
 	print("========= MAX NAME = ", max_name)
 	print("========= MAX POSITION = ", max_position)
-	return hash_players, root
+	return hash_players, root, hash_positions
 
 # --------------------------------------------------
 # -------------     ratings.csv    -----------------
@@ -70,9 +72,11 @@ def printPlayer_2(hash_players, sofifa_id, user_rating):
 	i = sofifa_id%NUM_ENTRIES_PLAYERS
 	j = find_player_index(hash_players, sofifa_id)
 	player = hash_players[i][j]
-	print(str(player.getSofifaID()), end=" | ")
-	print('{:49s} | {:1.2f} | {:6d} | {:1.1f}'.format(str(player.getName()), player.getAverage(), player.getCount()), user_rating)
-
+	print(' {:10s}'.format(str(player.getSofifaID())), end=" | ")
+	print('{:49s}'.format(str(player.getName())), end=" | ")
+	print('{:1.5f}       '.format(player.getAverage()), end=" | ")
+	print('{:7s}'.format(str(player.getCount())), end=" | ")
+	print('{:1.1f} '.format(user_rating))
 
 
 

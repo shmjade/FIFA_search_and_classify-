@@ -1,3 +1,9 @@
+# =======================================================
+# =============            TO DO           ==============
+# =======================================================
+# Test: 
+# - name prefix that is not listed: e.g. 'lalauo'
+# - user that doesnt exist
 
 # =======================================================
 # ============          DEFINITIONS         =============
@@ -16,7 +22,8 @@ ALPHABET_SIZE = 30
 NUM_PLAYERS = 18944			# Number of rows on players.csv
 # Number of entries on Players hash table
 NUM_ENTRIES_PLAYERS = 9497  # --> closest prime number to NUM_PLAYERS
-
+# Number of player positions
+NUM_POSITIONS = 26
 # ----------- rating.csv -----------
 # Total number of ratings:
 NUM_RATINGS = 24188078 			# Number of rows on ratings.csv

@@ -14,6 +14,7 @@ from functions import *
 from Functions.menu import *
 
 
+
 # ==================================================================
 # =====================      EXAMPLES       ========================
 # ==================================================================
@@ -21,6 +22,7 @@ from Functions.menu import *
 # ----- Players -----
 # 0 - Creates a hash table for the players and a table for the positions
 hash_players = new_hash_table(NUM_ENTRIES_PLAYERS)
+hash_positions = new_hash_table(NUM_POSITIONS)
 
 # 1 - Creates a Trie Tree for the players' names
 root=TrieNode(-1," ")
@@ -28,9 +30,12 @@ root=TrieNode(-1," ")
 
 # 2 - Opens the players.csv archive and inserts the players on the hash table
 start = time.time()
-hash_players, root = read_players_csv(hash_players, root)
+hash_players, root, hash_positions = read_players_csv(hash_players, root, hash_positions)
 end = time.time()
-
+for h in hash_positions:
+    for p in h:
+        print(str(p.getSofifaID()) + p.getPosition())
+input("------------ ESPERA -------------")
 # 3 - Prints the statistic of the hash table
 print(" ------- PLAYERS HASH TABLE -------")
 print("Load time = "+ str(end-start))

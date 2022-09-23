@@ -36,11 +36,13 @@ def search2(user_id, hash_users, hash_players):
 	#Sorts the user ratings:
 	sortered = quicksort(hash_users[user_id])
 	print("len sortered = ", len(sortered))
-	for i in range(0, 20):
-		print("Sofifa_id = ", sortered[i][0])
-		print("User rating = ",sortered[i][1])
-		#printPlayer_2(hash_players, sortered[i][0], sortered[i][1])
-
+	if(len(sortered)>0):
+		i=len(sortered)-1
+		while(i>0 and i>len(sortered)-21):
+			printPlayer_2(hash_players, sortered[i][0], sortered[i][1])
+			i-=1
+	else:
+		print("----- user "+user_id+"has no ratings -----")
 # Prints the best (top 20) players review by the user
 def quicksort(list):
 	if(len(list)>1):
