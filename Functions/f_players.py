@@ -1,4 +1,5 @@
 import csv
+from turtle import pos
 from Classes.player import *
 from Functions.f_positions import hash_pos
 # --------------------------------------------------
@@ -25,9 +26,14 @@ def read_players_csv(hash_players, root, hash_positions):
 				if(len(row[1])>max_name):
 					max_name = len(row[1])
 				if(len(row[2])>max_position):
-					max_position = len(row[2])				# Insert the player on the hash table
+					max_position = len(row[2])				
+				# Insert the player on the players hash table
 				hash_players = insert_hash_players(hash_players, (Player(int(row[0]), row[1], row[2], int(row[3]), int(row[4]), int(row[5]))))
-				hash_positions[hash_pos(row[2])].append(Player(int(row[0]), row[1], row[2], int(row[3]), int(row[4]), int(row[5])))
+				# Insert the player on the positions hash table
+				positions = row[2].replace(' ', "")
+				positions = positions.split(',')
+				for r in positions:
+					hash_positions[hash_pos(r)].append(Player(int(row[0]), row[1], row[2], int(row[3]), int(row[4]), int(row[5])))
 				# Insert the name of the player on the Trie Tree
 				root.insertTrie(row[1], row[0])     # row[1] is the name and row[0] is the sofifa_id
 			i+=1

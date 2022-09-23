@@ -23,7 +23,6 @@ from Functions.menu import *
 # 0 - Creates a hash table for the players and a table for the positions
 hash_players = new_hash_table(NUM_ENTRIES_PLAYERS)
 hash_positions = new_hash_table(NUM_POSITIONS)
-
 # 1 - Creates a Trie Tree for the players' names
 root=TrieNode(-1," ")
 
@@ -32,10 +31,13 @@ root=TrieNode(-1," ")
 start = time.time()
 hash_players, root, hash_positions = read_players_csv(hash_players, root, hash_positions)
 end = time.time()
+'''
 for h in hash_positions:
+    print("---------------")
     for p in h:
-        print(str(p.getSofifaID()) + p.getPosition())
-input("------------ ESPERA -------------")
+        print(p.getPosition())
+    input()
+'''
 # 3 - Prints the statistic of the hash table
 print(" ------- PLAYERS HASH TABLE -------")
 print("Load time = "+ str(end-start))
@@ -72,10 +74,10 @@ hash_tags = read_tags_csv(hash_tags)
 end = time.time()
 print("Load time = "+ str(end-start))
 print(" ------- END TAGS -------")
-
+'''
 #-----   Menu   -----
 flag_menu=0
 while(flag_menu!=5):
     flag_menu = menu(root, hash_players, hash_users)
-
+'''
 
