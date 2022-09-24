@@ -56,6 +56,16 @@ statistic_entries(hash_users, NUM_ENTRIES_RATINGS)
 
 # ----- Trie ----
 
+# 4 - Add the players in sorted lists for their positions
+print(" ------- POSITIONS HASH TABLE -------")
+start = time.time()
+hash_table_position=map_positions(hash_players)
+end = time.time()
+print(" ------- END POSITIONS -------")
+# 4 - Prints the statistic of the hash table
+print("Load time = "+ str(end-start))
+statistic_entries(hash_table_position, 26)
+
 
 #-----   Tags   -----
 # 1 - Creates a hash table for the tags

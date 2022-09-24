@@ -27,7 +27,11 @@ class Player:
 		return self.position
 
 	def getAverage(self):
-		return self.rating_sum/self.rating_count
+		try:
+			m = self.rating_sum/self.rating_count
+		except ZeroDivisionError:
+			m = 0
+		return m
 
 	def getCount(self):
 		return self.rating_count
