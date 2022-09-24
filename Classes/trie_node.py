@@ -1,5 +1,5 @@
 from definitions import *
-from functions import *
+from Functions.f_archives import *
 from Functions.f_players import *
 # =======================================================
 # ==============          CLASSES        ================

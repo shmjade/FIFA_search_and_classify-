@@ -10,7 +10,7 @@ from Functions.f_players import *
 from Functions.f_positions import *
 from Functions.f_tags import *
 from Functions.f_users import *
-from functions import *
+from Functions.f_archives import *
 from Functions.menu import *
 
 
@@ -29,15 +29,9 @@ root=TrieNode(-1," ")
 
 # 2 - Opens the players.csv archive and inserts the players on the hash table
 start = time.time()
-hash_players, root, hash_positions = read_players_csv(hash_players, root, hash_positions)
+hash_players, root = read_players_csv(hash_players, root)
 end = time.time()
-'''
-for h in hash_positions:
-    print("---------------")
-    for p in h:
-        print(p.getPosition())
-    input()
-'''
+
 # 3 - Prints the statistic of the hash table
 print(" ------- PLAYERS HASH TABLE -------")
 print("Load time = "+ str(end-start))
@@ -74,10 +68,10 @@ hash_tags = read_tags_csv(hash_tags)
 end = time.time()
 print("Load time = "+ str(end-start))
 print(" ------- END TAGS -------")
-'''
+
 #-----   Menu   -----
 flag_menu=0
 while(flag_menu!=5):
     flag_menu = menu(root, hash_players, hash_users)
-'''
+
 

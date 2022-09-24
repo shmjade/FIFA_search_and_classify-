@@ -1,6 +1,6 @@
 # --------------------------------------------------
 # -------------        menu        -----------------
-from Functions.researches import *
+from Functions.Researches.researches import *
 from definitions import NUM_ENTRIES_RATINGS
 #[int] Prints the menu options, waits for the user input and return the user option
 def menu(root, hash_players, hash_users):

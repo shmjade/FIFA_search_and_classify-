@@ -10,36 +10,7 @@ def insert_hash_players(hash_players, a_player):
 	hash_players[(a_player.getSofifaID())%NUM_ENTRIES_PLAYERS].append(a_player)
 	return hash_players
 
-# Opens the players.csv archive and:
-# - inserts the players on the hash table of players
-# - inserts the name of each player on the Trie Tree
-def read_players_csv(hash_players, root, hash_positions):
-	max_name = 0
-	max_position = 0
 
-	with open("players.csv", "r") as archive:
-		line_count = 0
-		csv_table = csv.reader(archive, delimiter=",")
-		i=0
-		for row in csv_table:
-			if(i!=0):
-				if(len(row[1])>max_name):
-					max_name = len(row[1])
-				if(len(row[2])>max_position):
-					max_position = len(row[2])				
-				# Insert the player on the players hash table
-				hash_players = insert_hash_players(hash_players, (Player(int(row[0]), row[1], row[2], int(row[3]), int(row[4]), int(row[5]))))
-				# Insert the player on the positions hash table
-				positions = row[2].replace(' ', "")
-				positions = positions.split(',')
-				for r in positions:
-					hash_positions[hash_pos(r)].append(Player(int(row[0]), row[1], row[2], int(row[3]), int(row[4]), int(row[5])))
-				# Insert the name of the player on the Trie Tree
-				root.insertTrie(row[1], row[0])     # row[1] is the name and row[0] is the sofifa_id
-			i+=1
-	print("========= MAX NAME = ", max_name)
-	print("========= MAX POSITION = ", max_position)
-	return hash_players, root, hash_positions
 
 # --------------------------------------------------
 # -------------     ratings.csv    -----------------
