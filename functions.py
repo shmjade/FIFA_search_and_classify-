@@ -11,6 +11,8 @@ from Classes.user import *
 from Classes.trie_node import *
 from Functions.f_users import *
 from Functions.f_players import *
+import time
+
 
 
 # Opens the rating.csv file and:
@@ -24,23 +26,18 @@ def read_rating_csv(hash_users, hash_players):
 		i=0
 		start = time.time()
 		for row in csv_table:
-			if(i!=0):
-				if(i%1000000==0):
-					print("Ratings = ", i)
-					end=time.time()
-					print(end - start)
-					start=end
-				rating = (int(row[1]), float(row[2]))	# row[1] is the sofifa_id and row[2] is the rating
-				# If this is the user's first rating, init the user and insert it:
-				if(hash_users[int(row[0])]==0):
-					hash_users[int(row[0])] = User(int(row[0]), rating)	# row[0] is the user_id
-				# If the user has already been inserted, only append this new rating:
-				else:					
-					hash_users[int(row[0])].addRating(rating)
-				# Update the player's rating:
-				hash_players = insert_rating_player(hash_players, rating)				
-			i+=1			
-	return hash_users, hash_players
+			rating = (int(row[1]), float(row[2]))	# row[1] is the sofifa_id and row[2] is the rating
+			# If this is the user's first rating, init the user and insert it:
+			if(hash_users[int(row[0])]==0):
+				hash_users[int(row[0])] = User(int(row[0]), rating)	# row[0] is the user_id
+			# If the user has already been inserted, only append this new rating:
+			else:					
+				hash_users[int(row[0])].addRating(rating)
+			# Update the player's rating:
+			hash_players = insert_rating_player(hash_players, rating)				
+	end=time.time()
+	print(end - start)
+	#return hash_users, hash_players
 
 
 
