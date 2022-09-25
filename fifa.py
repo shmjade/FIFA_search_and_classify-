@@ -82,6 +82,6 @@ print(" ------- END TAGS -------")
 #-----   Menu   -----
 flag_menu=0
 while(flag_menu!=5):
-    flag_menu = menu(root, hash_players, hash_users)
+    flag_menu = menu(root, hash_players, hash_users, hash_table_position)
 
 
