@@ -47,7 +47,7 @@ hash_users = new_hash_table(NUM_ENTRIES_USERS)
 # 2 - Opens the ratings.csv archive and inserts the ratings on the hash table
 print(" ------- USERS HASH TABLE -------")
 start = time.time()
-hash_users, hash_players = read_rating_csv(hash_users, hash_players)
+#hash_users, hash_players = read_rating_csv(hash_users, hash_players)
 end = time.time()
 print(" ------- END USERS -------")
 # 3 - Prints the statistic of the hash table
