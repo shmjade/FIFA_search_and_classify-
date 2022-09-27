@@ -8,7 +8,7 @@ from re import sub
  
 from definitions import NUM_ENTRIES_RATINGS
 #[int] Prints the menu options, waits for the user input and return the user option
-def menu(root, hash_players, hash_users, hash_table_position):
+def menu(root, hash_players, hash_users, hash_table_position, hash_tags):
 	print("\t--- MENU ---")
 	print("Options:")
 	print("player <prefix of the names>")
@@ -29,10 +29,27 @@ def menu(root, hash_players, hash_users, hash_table_position):
 				search2(int(words[1]), hash_users, hash_players)
 				opt = 2			
 			case 'tags':
-				tags=option[5:].split("’")
-				tags=[sub(r'[^a-zA-Z ]+', '', tag).strip() for tag in tags]
-				#for i in range(0,len(tags)):
-				#	tags[i]=sub(r'[^a-zA-Z ]+', '', tags[i])
+				# Get the tags list
+				tags=option[5:]
+				list_tags = []
+				i=0
+				while(i<len(tags)):
+					#Find the first '
+					while(tags[i]!="'"):
+						i+=1
+					i+=1
+					word = ""
+					#Append all letters until the next ' is found
+					while(tags[i]!="'"):
+						word = word + tags[i]
+						i+=1
+					#Append the word to the list of tags
+					list_tags.append(word)
+					i+=1
+				#print("## 1 ##")
+				#print(list_tags)
+				# Search for the players of the given tags
+				search4(tags, hash_tags, hash_players)
 				opt = 4
 			case 'exit':
 				opt = 5

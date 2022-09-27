@@ -47,14 +47,13 @@ hash_users = new_hash_table(NUM_ENTRIES_USERS)
 # 2 - Opens the ratings.csv archive and inserts the ratings on the hash table
 print(" ------- USERS HASH TABLE -------")
 start = time.time()
-#hash_users, hash_players = read_rating_csv(hash_users, hash_players)
+hash_users, hash_players = read_rating_csv(hash_users, hash_players)
 end = time.time()
+
 print(" ------- END USERS -------")
 # 3 - Prints the statistic of the hash table
 print("Load time = "+ str(end-start))
 statistic_entries(hash_users, NUM_ENTRIES_RATINGS)
-
-# ----- Trie ----
 
 # 4 - Add the players in sorted lists for their positions
 print(" ------- POSITIONS HASH TABLE -------")
@@ -82,6 +81,6 @@ print(" ------- END TAGS -------")
 #-----   Menu   -----
 flag_menu=0
 while(flag_menu!=5):
-    flag_menu = menu(root, hash_players, hash_users, hash_table_position)
+    flag_menu = menu(root, hash_players, hash_users, hash_table_position, hash_tags)
 
 

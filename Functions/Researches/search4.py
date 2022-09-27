@@ -47,7 +47,6 @@ def search4(tags_list, hash_tags, hash_players):
 			entry_lists=hash_tags[maping(tag, NUM_ENTRIES_TAGS)]
 			# Only insert the list of sofifa_ids that concerns the given tag:
 			for minor_list in entry_lists:
-				print(minor_list[0])
 				# Verify if the element0 is the given tag:
 				if minor_list[0]==tag:
 					# If so, append the list of sofifa_ids without the first element (tag) and the duplicates
@@ -57,10 +56,14 @@ def search4(tags_list, hash_tags, hash_players):
 		# Get the intersection of the lists:
 		intersec = intersection(lists[0], lists[1])
 		for i in range(2, len(tags_list)):
-			intersec = intersection(intersec, lists[i])
+			intersec = intersection(intersec, lists[i]) 
 	else:
 		entry_lists = hash_tags[maping(tags_list[0], NUM_ENTRIES_TAGS)]
 		for minor_list in entry_lists:
+			#print("minor list:")
+			#print(minor_list)
+			#print("tags_list[0]:")
+			#print(tags_list[0])
 			if minor_list[0]==tags_list[0]:
 				intersec = remove_duplicates(minor_list[1:])
 	#print("---- intersec ----")
