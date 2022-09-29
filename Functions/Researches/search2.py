@@ -23,7 +23,7 @@ def search2(user_id, hash_users, hash_players):
 			printPlayer_2(hash_players, sortered[i][0], sortered[i][1])
 			i-=1
 	else:
-		print("----- user "+user_id+"has no ratings -----")
+		print("----- user "+str(user_id)+" has no ratings -----")
 # Prints the best (top 20) players review by the user
 def quicksort2(list):
 	if(len(list)>1):

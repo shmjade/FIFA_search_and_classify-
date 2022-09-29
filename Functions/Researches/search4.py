@@ -30,46 +30,7 @@ def sort_lists(lists):
 	ordered = []
 	for i in range(0, len(lists)):
 		ordered.append(lists[size_lists[i][0]])
-		print(lists[size_lists[i][0]])
 	return ordered
-	
-# Receives the tags_list list, the hash_tags and hash_players tables and prints
-# the players that have all of the tags on the given list of tags
-def search4(tags_list, hash_tags, hash_players):
-	print("----- PLAYERS OF THE TAGS -----")
-	print(' {:10s} | {:49s} | {:14s} | {:7s} | {:7s}'.format("sofifa_id","name of the player", "positions", "rating", 'count'))
-	if(len(tags_list)>1):
-		# Gets the lists of lists of sofifa_ids according to the tags
-		lists = []
-		# For each tag of the list of tags
-		for tag in tags_list:
-			# Gets the list of list of sofifa_ids on the hash_tags table, according to the tag
-			entry_lists=hash_tags[maping(tag, NUM_ENTRIES_TAGS)]
-			# Only insert the list of sofifa_ids that concerns the given tag:
-			for minor_list in entry_lists:
-				# Verify if the element0 is the given tag:
-				if minor_list[0]==tag:
-					# If so, append the list of sofifa_ids without the first element (tag) and the duplicates
-					lists.append(remove_duplicates(minor_list[1:]))
-		# Order the lists of lists of sofifa_ids by the length of the lists
-		lists = sort_lists(lists)
-		# Get the intersection of the lists:
-		intersec = intersection(lists[0], lists[1])
-		for i in range(2, len(tags_list)):
-			intersec = intersection(intersec, lists[i]) 
-	else:
-		entry_lists = hash_tags[maping(tags_list[0], NUM_ENTRIES_TAGS)]
-		for minor_list in entry_lists:
-			#print("minor list:")
-			#print(minor_list)
-			#print("tags_list[0]:")
-			#print(tags_list[0])
-			if minor_list[0]==tags_list[0]:
-				intersec = remove_duplicates(minor_list[1:])
-	#print("---- intersec ----")
-	#print(intersec)
-	for sofifa_id in intersec:
-		printPlayer_1(hash_players, int(sofifa_id))
 	
 # Receives a list and returns the list without duplicate elements			
 def remove_duplicates(a_list):
@@ -82,6 +43,38 @@ def remove_duplicates(a_list):
 		if insert==1:
 			new.append(element1)
 	return new
+
+# Receives a tag and returns the list of sofifa_ids of the players that have this tag
+def get_list_tags(tag, hash_tags):
+	entry_lists=hash_tags[maping(tag.split(" ")[0], NUM_ENTRIES_TAGS)]
+	for entry in entry_lists:
+		if(entry[0]==tag):
+			list = remove_duplicates(entry[1:])	
+	return list 
+
+
+# Receives the tags_list list, the hash_tags and hash_players tables and prints
+# the players that have all of the tags on the given list of tags
+def search4(tags_list, hash_tags, hash_players):
+	print("### 1 START ###")
+	if(len(tags_list)==0):
+		print("Warning: empty list of tags")
+		return -1
+	else:
+		# Get the first list of sofifa_ids
+		intersec = get_list_tags(tags_list[0], hash_tags)
+		# Get the intersection with the other lists
+		i=1
+		while(i<len(tags_list)):
+			intersec = intersection(intersec, get_list_tags(tags_list[i], hash_tags))
+			i+=1
+		print("----- PLAYERS OF THE TAGS -----")
+		print(' {:10s} | {:49s} | {:14s} | {:7s} | {:7s}'.format("sofifa_id","name of the player", "positions", "rating", 'count'))
+		for sofifa_id in intersec:
+			printPlayer_1(hash_players, int(sofifa_id))
+	print("### 4: END ###")
+	
+
 
 
 
