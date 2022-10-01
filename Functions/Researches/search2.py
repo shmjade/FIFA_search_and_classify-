@@ -24,7 +24,8 @@ def search2(user_id, hash_users, hash_players):
 			i-=1
 	else:
 		print("----- user "+str(user_id)+" has no ratings -----")
-# Prints the best (top 20) players review by the user
+
+# Sorts a list of tuples (x, y) by the second value (y)
 def quicksort2(list):
 	if(len(list)>1):
 		lower = []

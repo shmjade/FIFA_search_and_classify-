@@ -35,23 +35,17 @@ def menu(root, hash_players, hash_users, hash_table_position, hash_tags):
 				i=0
 				while(i<len(tags)):
 					#Find the first '
-					while(i<len(tags) and tags[i]!="'"):
+					while(i<len(tags) and tags[i]!="‘"):
 						i+=1
 					i+=1
 					word = ""
 					#Append all letters until the next ' is found
-					while(i<len(tags) and tags[i]!="'"):
+					while(i<len(tags) and tags[i]!="’"):
 						word = word + tags[i]
 						i+=1
 					#Append the word to the list of tags
 					list_tags.append(word)
 					i+=1
-				print("## 1 ##")
-				print(list_tags)
-				print(type(list_tags))
-				print(len(list_tags))
-				print("## 2 ##")
-				print(list_tags[0])
 				# Search for the players of the given tags
 				search4(list_tags, hash_tags, hash_players)
 				opt = 4

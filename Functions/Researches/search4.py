@@ -56,7 +56,6 @@ def get_list_tags(tag, hash_tags):
 # Receives the tags_list list, the hash_tags and hash_players tables and prints
 # the players that have all of the tags on the given list of tags
 def search4(tags_list, hash_tags, hash_players):
-	print("### 1 START ###")
 	if(len(tags_list)==0):
 		print("Warning: empty list of tags")
 		return -1
@@ -68,11 +67,11 @@ def search4(tags_list, hash_tags, hash_players):
 		while(i<len(tags_list)):
 			intersec = intersection(intersec, get_list_tags(tags_list[i], hash_tags))
 			i+=1
+		# Print the players
 		print("----- PLAYERS OF THE TAGS -----")
 		print(' {:10s} | {:49s} | {:14s} | {:7s} | {:7s}'.format("sofifa_id","name of the player", "positions", "rating", 'count'))
 		for sofifa_id in intersec:
 			printPlayer_1(hash_players, int(sofifa_id))
-	print("### 4: END ###")
 	
 
 

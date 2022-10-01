@@ -15,18 +15,12 @@ from Functions.f_positions import *
 
 
 def search3(position, N, hash_table_position):
-	print("----- PLAYERS ON THE POSITION " + str(position) + " -----")
+	print("----- PLAYERS OF POSITION " + str(position) + " -----")
+	print(' {:10s} | {:49s} | {:14s} | {:7s} | {:6s}'.format("sofifa_id","name of the player", "position", "rating", 'count'))
 	position_index=hash_pos(position)
 	position_list=hash_table_position[position_index][len(hash_table_position[position_index])-N:]
-	for i in range(len(position_list)-1,-1,-1): #Pass though the list on the reverse order
+	for i in range(len(position_list)-1,-1,-1): #Pass though the list on the invert the order
 		player=position_list[i]
 		print(' {:10s} | {:49s} | {:14s} |  {:1.2f}   | {:6d}'.format(str(player.getSofifaID()), str(player.getName()), player.getPosition(), player.getAverage(), player.getCount()))
 	
 
-#def search3(position, N, hash_players, hash_positions):
-#	sortered = quicksort3(hash_positions[hash_pos(position)])
-#	i=len(sortered)-1
-#	while(i>=0 and i>len(sortered)-N-1):
-#		printPlayer_1(hash_players, sortered[i].getSofifaID())
-
-	

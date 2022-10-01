@@ -76,11 +76,6 @@ def read_tags_csv(hash_tags):
 		next(csv_table, None)  # skip the headers
 		i=0
 		for row in csv_table:
-			#if(i%100==0):
-			#		print("Tags = ", i)
-			#		end=time.time()
-			#		print(end - start)
-			#		start=end
 			if(i!=0):
 				# Insert the tag on the hash table
 				entry=hash_tags[maping(row[2].split(" ")[0], NUM_ENTRIES_TAGS)] #entry on the hash table
