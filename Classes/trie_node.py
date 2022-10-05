@@ -75,8 +75,6 @@ class TrieNode:
 
 	def printChildren(self, node, string, hash_players):
 		string=string+node.letter
-		if node==None:
-			return 
 		total=len(node.children)
 		for i in range(0, total-1):
 			if node.children[i] is not None:

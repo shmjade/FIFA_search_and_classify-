@@ -10,7 +10,7 @@ from definitions import NUM_ENTRIES_RATINGS
 #[int] Prints the menu options, waits for the user input and return the user option
 def menu(root, hash_players, hash_users, hash_table_position, hash_tags):
 	print("\t--- MENU ---")
-	print("Options:")
+	print("    Options:")
 	print("player <prefix of the names>")
 	print("user <user ID>")
 	print("top<number of players> <position>")

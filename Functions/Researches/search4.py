@@ -46,6 +46,7 @@ def remove_duplicates(a_list):
 
 # Receives a tag and returns the list of sofifa_ids of the players that have this tag
 def get_list_tags(tag, hash_tags):
+	list = []
 	entry_lists=hash_tags[maping(tag.split(" ")[0], NUM_ENTRIES_TAGS)]
 	for entry in entry_lists:
 		if(entry[0]==tag):
@@ -69,9 +70,12 @@ def search4(tags_list, hash_tags, hash_players):
 			i+=1
 		# Print the players
 		print("----- PLAYERS OF THE TAGS -----")
-		print(' {:10s} | {:49s} | {:14s} | {:7s} | {:7s}'.format("sofifa_id","name of the player", "positions", "rating", 'count'))
-		for sofifa_id in intersec:
-			printPlayer_1(hash_players, int(sofifa_id))
+		if(intersec==[]):
+			print("No player has all tags given")
+		else:
+			print(' {:10s} | {:49s} | {:14s} | {:7s} | {:7s}'.format("sofifa_id","name of the player", "positions", "rating", 'count'))
+			for sofifa_id in intersec:
+				printPlayer_1(hash_players, int(sofifa_id))
 	
 
 

@@ -23,11 +23,13 @@ from Functions.menu import *
 # 0 - Creates a hash table for the players and a table for the positions
 hash_players = new_hash_table(NUM_ENTRIES_PLAYERS)
 hash_positions = new_hash_table(NUM_POSITIONS)
+
 # 1 - Creates a Trie Tree for the players' names
 root=TrieNode(-1," ")
 
 
 # 2 - Opens the players.csv archive and inserts the players on the hash table
+startAll = time.time()
 start = time.time()
 hash_players, root = read_players_csv(hash_players, root)
 end = time.time()
@@ -47,7 +49,7 @@ hash_users = new_hash_table(NUM_ENTRIES_USERS)
 # 2 - Opens the ratings.csv archive and inserts the ratings on the hash table
 print(" ------- USERS HASH TABLE -------")
 start = time.time()
-hash_users, hash_players = read_rating_csv(hash_users, hash_players)
+#hash_users, hash_players = read_rating_csv(hash_users, hash_players)
 end = time.time()
 
 print(" ------- END USERS -------")
@@ -77,6 +79,12 @@ hash_tags = read_tags_csv(hash_tags)
 end = time.time()
 print("Load time = "+ str(end-start))
 print(" ------- END TAGS -------")
+
+endAll = time.time()
+print("\n\n -------------------------")
+print(" ------- LOAD TIME -------")
+print("Total time = "+ str(endAll-startAll))
+
 
 #-----   Menu   -----
 flag_menu=0
