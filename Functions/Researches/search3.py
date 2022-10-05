@@ -24,3 +24,4 @@ def search3(position, N, hash_table_position):
 		print(' {:10s} | {:49s} | {:14s} |  {:1.2f}   | {:6d}'.format(str(player.getSofifaID()), str(player.getName()), player.getPosition(), player.getAverage(), player.getCount()))
 	
 
+ 

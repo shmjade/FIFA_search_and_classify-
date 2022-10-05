@@ -24,6 +24,8 @@ NUM_PLAYERS = 18944			# Number of rows on players.csv
 NUM_ENTRIES_PLAYERS = 9497  # --> closest prime number to NUM_PLAYERS
 # Number of player positions
 NUM_POSITIONS = 26
+# Number of age entries
+NUM_AGE = 38    # Ages are in the range [16, 53]
 # ----------- rating.csv -----------
 # Total number of ratings:
 NUM_RATINGS = 24188078 			# Number of rows on ratings.csv

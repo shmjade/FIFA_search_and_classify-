@@ -23,7 +23,7 @@ from Functions.menu import *
 # 0 - Creates a hash table for the players and a table for the positions
 hash_players = new_hash_table(NUM_ENTRIES_PLAYERS)
 hash_positions = new_hash_table(NUM_POSITIONS)
-
+hash_age = new_hash_table(NUM_AGE)
 # 1 - Creates a Trie Tree for the players' names
 root=TrieNode(-1," ")
 
@@ -31,9 +31,8 @@ root=TrieNode(-1," ")
 # 2 - Opens the players.csv archive and inserts the players on the hash table
 startAll = time.time()
 start = time.time()
-hash_players, root = read_players_csv(hash_players, root)
+hash_players, root, hash_age = read_players_csv(hash_players, root, hash_age)
 end = time.time()
-
 # 3 - Prints the statistic of the hash table
 print(" ------- PLAYERS HASH TABLE -------")
 print("Load time = "+ str(end-start))

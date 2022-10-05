@@ -25,6 +25,15 @@ class Player:
 
 	def getPosition(self):
 		return self.position
+	
+	def getAge(self):
+		return self.age
+
+	def getWeight(self):
+		return float(self.weight)
+
+	def getHeight(self):
+		return float(self.height)
 
 	def getAverage(self):
 		try:

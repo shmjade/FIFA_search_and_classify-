@@ -4,6 +4,7 @@ from Functions.Researches.search1 import *
 from Functions.Researches.search2 import *
 from Functions.Researches.search3 import *
 from Functions.Researches.search4 import *
+from Functions.Researches.search5 import *
 from re import sub
  
 from definitions import NUM_ENTRIES_RATINGS
@@ -51,7 +52,7 @@ def menu(root, hash_players, hash_users, hash_table_position, hash_tags):
 				opt = 4
 			case 'exit':
 				opt = 5
-			case default:
+			case default: 
 				if words[0].lower()[:3]=='top':
 					#1st-List comprehension to clear all chars than letters
 					#2nd-Convert to int the following to top

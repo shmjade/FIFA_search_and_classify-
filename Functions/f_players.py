@@ -55,5 +55,17 @@ def printPlayer_2(hash_players, sofifa_id, user_rating):
 	print('{:7s}'.format(str(player.getCount())), end=" | ")
 	print('{:1.1f} '.format(user_rating))
 
-
+# Prints the player's information on the following configuration:
+# |   sofifa_id	|   name        |   global_rating       |	count         	| age |  imc  | height | weight 
+def printPlayer_5(hash_players, sofifa_id, weight, height, imc):
+	i = sofifa_id%NUM_ENTRIES_PLAYERS
+	j = find_player_index(hash_players, sofifa_id)
+	player = hash_players[i][j]
+	print(' {:10s}'.format(str(player.getSofifaID())), end=" | ")
+	print('{:49s}'.format(str(player.getName())), end=" | ")
+	print('{:2d} '.format(player.getAge()), end=" | ")
+	print('{:2.3f}'.format(imc), end=" | ")
+	print(' {:1.2f} '.format(height), end=" | ")
+	print('{:3.2f}'.format(weight), end="  | ")
+	print('{:1.5f}       '.format(player.getAverage()))
 

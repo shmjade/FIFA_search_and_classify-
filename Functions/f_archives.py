@@ -17,7 +17,7 @@ from Functions.f_tags import *
 # Opens the players.csv archive and:
 # - inserts the players on the hash table of players
 # - inserts the name of each player on the Trie Tree
-def read_players_csv(hash_players, root):
+def read_players_csv(hash_players, root, hash_age):
 	max_name = 0
 	max_position = 0
 
@@ -35,10 +35,15 @@ def read_players_csv(hash_players, root):
 				hash_players = insert_hash_players(hash_players, (Player(int(row[0]), row[1], row[2], int(row[3]), int(row[4]), int(row[5]))))
 				# Insert the name of the player on the Trie Tree
 				root.insertTrie(row[1], row[0])     # row[1] is the name and row[0] is the sofifa_id
+				# Insert player on the age hash table
+				# row[3] is the age and -16 because the youngest player is 16
+				# row[4] is the height and row[5] is the weight
+				# hash_age objects are (sofifa_id, height, weight)
+				hash_age[int(row[3])-16].append((row[0], row[4], row[5]))
 			i+=1
 	print("========= MAX NAME = ", max_name)
 	print("========= MAX POSITION = ", max_position)
-	return hash_players, root
+	return hash_players, root, hash_age
 
 
 
