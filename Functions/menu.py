@@ -9,7 +9,7 @@ from re import sub
  
 from definitions import NUM_ENTRIES_RATINGS
 #[int] Prints the menu options, waits for the user input and return the user option
-def menu(root, hash_players, hash_users, hash_table_position, hash_tags):
+def menu(root, hash_players, hash_users, hash_table_position, hash_tags, hash_age):
 	print("\t--- MENU ---")
 	print("    Options:")
 	print("player <prefix of the names>")
@@ -52,6 +52,13 @@ def menu(root, hash_players, hash_users, hash_table_position, hash_tags):
 				opt = 4
 			case 'exit':
 				opt = 5
+			case 'age':
+				opt=6
+				feature = opt_search5(words[3])
+				if(feature!=-1):
+					search5(feature, words[2], int(words[1]), hash_age, hash_players)
+				else:
+					print("INVALID INPUT")
 			case default: 
 				if words[0].lower()[:3]=='top':
 					#1st-List comprehension to clear all chars than letters

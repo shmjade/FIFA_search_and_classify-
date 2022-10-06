@@ -11,7 +11,7 @@ from Functions.f_players import *
 # --------------------------------------------------
 # --------------    second search    ---------------
 
-def search2(user_id, hash_users, hash_players):
+def search2(user_id, hash_users, hash_players): 
 	print("----- PLAYERS REVIEWED BY USER " + str(user_id) + " -----")
 	print(' {:10s} | {:49s} | {:14s} | {:7s} | {:12s}'.format("sofifa_id","name of the player", "global rating", "count", 'user rating'))
 	#Sorts the user ratings:

@@ -1,5 +1,6 @@
 import csv
 import math
+from re import I
 import time
 from definitions import *
 from Classes.player import *
@@ -32,6 +33,7 @@ root=TrieNode(-1," ")
 startAll = time.time()
 start = time.time()
 hash_players, root, hash_age = read_players_csv(hash_players, root, hash_age)
+
 end = time.time()
 # 3 - Prints the statistic of the hash table
 print(" ------- PLAYERS HASH TABLE -------")
@@ -88,6 +90,6 @@ print("Total time = "+ str(endAll-startAll))
 #-----   Menu   -----
 flag_menu=0
 while(flag_menu!=5):
-    flag_menu = menu(root, hash_players, hash_users, hash_table_position, hash_tags)
+    flag_menu = menu(root, hash_players, hash_users, hash_table_position, hash_tags, hash_age)
 
 
